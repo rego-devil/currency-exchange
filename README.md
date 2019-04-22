@@ -1,5 +1,7 @@
 # currency-exchange
 
+## Demo - https://rego-devil.github.io/currency-exchange/
+
 Test task
 API: 
 	Любой API, откуда можно достать курс криптовалют, например 
