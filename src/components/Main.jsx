@@ -25,7 +25,6 @@ class AppContainer extends React.Component {
 
   handleChangeVolume = (event) => {
       
-    // if(/^[1-9]\d*([.]\d*)?$/.test(event.target.value)) {
     if(!isNaN(event.target.value)) {
       this.setState({volumeValue: event.target.value})
     }

@@ -5,7 +5,6 @@ import { find } from 'lodash';
 
 const url = 'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11';
 
-// Sagas
 function* fetchCurrencyExchangeAsync() {
   try {
     const data = yield call(() => {
@@ -53,17 +52,4 @@ export function* watchFetchCurrencyExchange() {
     yield take(constants.REQUEST_CURRENCY_EXCHANGE);
     yield call(fetchCurrencyExchangeAsync);
   }
-  // yield takeEvery(constants.REQUEST_CURRENCY_EXCHANGE, fetchCurrencyExchangeAsync);
 }
-
-
-
-
-
-//testing
-// const iterator = fetchDogAsync();
-// iterator.next();
-// const value = iterator.next().value;
-// console.log( isEqual(value, call(() => fetch('https://dog.ceo/api/breeds/image/random').then(res => res.json() ))), 'wrong value of test' );
-// console.log(call(() => fetch('https://dog.ceo/api/breeds/image/random')))
-// console.log(value)
