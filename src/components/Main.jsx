@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { requestСurrencyExchange }  from '../redux/actions';
 import { CurrencyBlock } from './CurrencyBlock';
 
@@ -31,6 +32,16 @@ class AppContainer extends React.Component {
     
   }
 
+  currenciesBlock = (item) => {
+    return (
+      <CurrencyBlock
+        key={item.id}
+        currency={item}
+        onSelectCoin={this.selectCoin}
+      />
+    )
+  }
+
   render () {
     const { loading, error, currencies } = this.props;
     const { сurrentСurrency, activeСurrency, volumeValue } = this.state;
@@ -39,15 +50,7 @@ class AppContainer extends React.Component {
         <div className="currencies">
           { error && <p>Error, try again</p> }
           { loading && <p>Loading...</p> }
-          { 
-            currencies && currencies.map(item => (
-              <CurrencyBlock
-                key={item.id}
-                currency={item}
-                onSelectCoin={this.selectCoin}
-              />
-            ))
-          }
+          { currencies && currencies.map(this.currenciesBlock) }
         </div>
         <div className="currentCurrency">Selected Coin: {сurrentСurrency && сurrentСurrency.currencyName}</div>
         {
@@ -82,15 +85,22 @@ class AppContainer extends React.Component {
       </div>
     )
   }
-}
+};
 
-export const App = connect((state) => ({
-    currencies: state.currencyExchange.cryptoСurrencies,
-    loading: state.currencyExchange.loading,
-    error: state.currencyExchange.error
+AppContainer.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  currencies: PropTypes.array
+};
 
-  }), 
-  (dispatch) => ({
-    requestCurrencyExchange: (data) => dispatch(requestСurrencyExchange(data)),
-  })
-)(AppContainer);
+const mapStateToProps = (state) => ({
+  currencies: state.currencyExchange.cryptoСurrencies,
+  loading: state.currencyExchange.loading,
+  error: state.currencyExchange.error
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  requestCurrencyExchange: (data) => dispatch(requestСurrencyExchange(data)),
+});
+
+export const Main = connect(mapStateToProps,mapDispatchToProps)(AppContainer);

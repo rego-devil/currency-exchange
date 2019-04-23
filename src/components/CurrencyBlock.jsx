@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const CurrencyBlock = ({ currency, onSelectCoin }) => {
   return (
@@ -22,4 +23,13 @@ export const CurrencyBlock = ({ currency, onSelectCoin }) => {
       }      
     </div>
   )
+};
+
+CurrencyBlock.propTypes = {
+  onSelectCoin: PropTypes.func,
+  currency: PropTypes.shape({
+    imgUrl: PropTypes.string,
+    currencyName: PropTypes.string,
+    currencies: PropTypes.object
+  })
 };
